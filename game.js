@@ -124,6 +124,7 @@ function update() {
 }
 function reset() {
   clearInterval(timer);
+  count = 0;
   document.getElementById("mines").innerHTML="Number of mines left: "+(nmines-count);
   document.getElementById("time").innerHTML="Time elapsed: 0";
   document.getElementById("message").innerHTML="";
