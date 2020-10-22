@@ -1,4 +1,5 @@
 let grid = document.getElementById("grid");
+let timer = null;
 let count = 0;
 
 function setEasy() {
@@ -21,16 +22,14 @@ function setHard() {
 }
 function generateGrid() {
   reset();
-  start = new Date().getTime()
   end = false;
-  timer = setInterval(update, 1000);
   grid.innerHTML="";
-  for (var i=0; i<rows; i++) {
+  for (let i=0; i<rows; i++) {
     row = grid.insertRow(i);
-    for (var j=0; j<cols; j++) {
+    for (let j=0; j<cols; j++) {
       cell = row.insertCell(j);
       cell.addEventListener("mouseup", clickHandler);
-      var mine = document.createAttribute("data-mine");       
+      let mine = document.createAttribute("data-mine");       
       mine.value = "false";             
       cell.setAttributeNode(mine);
     }
@@ -38,10 +37,10 @@ function generateGrid() {
   first = true;
 }
 function addMines(c) {
-  for (var i=0; i<nmines; i++) {   
+  for (let i=0; i<nmines; i++) {   
     do  {
-      var row = Math.floor(Math.random() * rows);
-      var col = Math.floor(Math.random() * cols); 
+      let row = Math.floor(Math.random() * rows);
+      let col = Math.floor(Math.random() * cols); 
       var cell = grid.rows[row].cells[col];
     } while (cell===c)
     cell.setAttribute("data-mine","true");   
@@ -50,9 +49,9 @@ function addMines(c) {
 function revealMines() {
   end = true;
   clearInterval(timer);
-  for (var i=0; i<rows; i++) {
-    for(var j=0; j<cols; j++) {
-      var cell = grid.rows[i].cells[j];
+  for (let i=0; i<rows; i++) {
+    for(let j=0; j<cols; j++) {
+      let cell = grid.rows[i].cells[j];
       if (cell.getAttribute("data-mine")=="true") {
         cell.className="mine";
         cell.innerHTML="&#10033";
@@ -61,9 +60,9 @@ function revealMines() {
   }
 }
 function checkLevelCompletion() {
-  var levelComplete = true;
-    for (var i=0; i<rows; i++) {
-      for(var j=0; j<cols; j++) {
+  let levelComplete = true;
+    for (let i=0; i<rows; i++) {
+      for(let j=0; j<cols; j++) {
         if ((grid.rows[i].cells[j].getAttribute("data-mine")=="false") && (grid.rows[i].cells[j].innerHTML=="")) levelComplete=false;
       }
   }
@@ -76,6 +75,8 @@ function clickHandler(event) {
   if(!end) {
     let cell = event.target;
     if(first) {
+      start = new Date().getTime()
+      timer = setInterval(update, 1000);
       addMines(cell);
       first = false;
     }
@@ -97,19 +98,19 @@ function clickCell(cell) {
     document.getElementById("message").innerHTML="<p>You clicked on a mine!<br><br>Game Over...</p><button onclick='generateGrid()'>Restart</button>";
   } else {
     cell.className="clicked";
-    var mineCount=0;
-    var cellRow = cell.parentNode.rowIndex;
-    var cellCol = cell.cellIndex;
-    for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,rows-1); i++) {
-      for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,cols-1); j++) {
+    let mineCount=0;
+    let cellRow = cell.parentNode.rowIndex;
+    let cellCol = cell.cellIndex;
+    for (let i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,rows-1); i++) {
+      for(let j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,cols-1); j++) {
         if (grid.rows[i].cells[j].getAttribute("data-mine")=="true") mineCount++;
       }
     }
     if (mineCount>0) cell.innerHTML=mineCount;
     else cell.innerHTML=" ";
     if (mineCount==0) { 
-      for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,rows-1); i++) {
-        for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,cols-1); j++) {
+      for (let i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,rows-1); i++) {
+        for(let j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,cols-1); j++) {
           if (grid.rows[i].cells[j].innerHTML=="") clickCell(grid.rows[i].cells[j]);
         }
       }
@@ -122,7 +123,8 @@ function update() {
   document.getElementById("time").innerHTML="Time elapsed: "+Math.floor((d-start)/1000);
 }
 function reset() {
+  clearInterval(timer);
   document.getElementById("mines").innerHTML="Number of mines left: "+(nmines-count);
-  document.getElementById("time").innerHTML="Time elapsed: "
-  document.getElementById("message").innerHTML=""
+  document.getElementById("time").innerHTML="Time elapsed: 0";
+  document.getElementById("message").innerHTML="";
 }

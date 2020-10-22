@@ -9,14 +9,15 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 .maindisplay {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 80%;
     height: 100%;
     background: black;
 }
 h1 {
     text-align: center;
-    font: bold 54px Cooper, serif;
+    font: bold 42px Cooper, serif;
 }
 .difficulty {
     margin: 10px;
