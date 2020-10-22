@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>minesweeper</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="maindisplay">
+      <h1>Minesweeper</h1>
+      <div class="difficulty">
+        <button onclick="setEasy()">Easy</button>
+        <button onclick="setMedium()">Medium</button>
+        <button onclick="setHard()">Hard</button>
+      </div>
+      <table id="grid" oncontextmenu="return false;"></table>
+      <div class="status" id="mines">Number of mines left: </div>
+      <div class="status" id="time">Time elapsed: </div>
+      <div id="message"></div>
+    </div>   
+    <script src="game.js"></script>
+  </body>
+</html> 

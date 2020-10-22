@@ -1,0 +1,45 @@
+html {
+    height: 100%;
+}
+body {
+    background: #76DC52;
+    height: 100%;
+    color: white;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+.maindisplay {
+    margin: auto;
+    width: 80%;
+    height: 100%;
+    background: black;
+}
+h1 {
+    text-align: center;
+    font: bold 54px Cooper, serif;
+}
+.difficulty {
+    margin: 10px;
+}
+#grid {
+    margin: auto;
+}
+#grid tr td {
+    border: 1px solid white;
+    background: #999999;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+#grid tr td.clicked {
+    background: #333333;
+}
+#grid tr td.mine {
+    background: #FF0000;
+}
+#status, #message {
+    font: 20px Courier, serif;
+    margin: auto;
+    width: 50%;
+    padding: 40px;
+}
